@@ -1,0 +1,1 @@
+`nbt` is a golang package for reading NBT (Named Binary Tags) files as used by Mojang AB in Minecraft

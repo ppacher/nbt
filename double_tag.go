@@ -2,6 +2,7 @@ package nbt
 
 import (
 	"encoding/binary"
+	"encoding/json"
 	"io"
 )
 
@@ -9,6 +10,11 @@ import (
 type DoubleTag struct {
 	NamedTag
 	Value float64
+}
+
+// MarshalJSON returns the JSON representation of the tag
+func (tag DoubleTag) MarshalJSON() ([]byte, error) {
+	return json.Marshal(tag.Value)
 }
 
 // TagID returns TagDouble

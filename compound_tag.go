@@ -1,11 +1,19 @@
 package nbt
 
-import "io"
+import (
+	"encoding/json"
+	"io"
+)
 
 // CompoundTag is a TagCompound named binary tag
 type CompoundTag struct {
 	NamedTag
 	Tags map[string]Tag
+}
+
+// MarshalJSON returns the JSON representation of the tag
+func (tag CompoundTag) MarshalJSON() ([]byte, error) {
+	return json.Marshal(tag.Tags)
 }
 
 // TagID returns TagCompound

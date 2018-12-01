@@ -2,6 +2,7 @@ package nbt
 
 import (
 	"encoding/binary"
+	"encoding/json"
 	"io"
 )
 
@@ -9,6 +10,11 @@ import (
 type StringTag struct {
 	NamedTag
 	Value string
+}
+
+// MarshalJSON returns the JSON representation of the tag
+func (tag StringTag) MarshalJSON() ([]byte, error) {
+	return json.Marshal(tag.Value)
 }
 
 // TagID return TagString

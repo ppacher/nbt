@@ -2,6 +2,7 @@ package nbt
 
 import (
 	"encoding/binary"
+	"encoding/json"
 	"io"
 )
 
@@ -24,6 +25,9 @@ const (
 // Tag reprensents a named tag in the NBT format (Named Binary Tag)
 // as specified by Mojang AB
 type Tag interface {
+	// Tags must support being marshaled into JSON
+	json.Marshaler
+
 	// Read reads the tag from a given io.Reader
 	Read(io.Reader) error
 

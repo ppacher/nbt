@@ -101,6 +101,10 @@ func ReadNamedTag(reader io.Reader) (Tag, error) {
 		return nil, err
 	}
 
+	if tagID == TagEnd {
+		return new(EndTag), nil
+	}
+
 	name, err := readUTF8String(reader)
 	if err != nil {
 		return nil, err
@@ -112,7 +116,7 @@ func ReadNamedTag(reader io.Reader) (Tag, error) {
 
 	tag.SetName(name)
 	if err := tag.Read(reader); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to read tag with name %s and type %d: %s", name, tagID, err.Error())
 	}
 
 	return tag, nil

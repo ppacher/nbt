@@ -38,13 +38,11 @@ func main() {
 		return
 	}
 
-	fmt.Println("File parsed successfully \n\n")
-
 	content, err := json.Marshal(tag)
 	if err != nil {
 		fmt.Println("Failed to convert to json")
 		return
 	}
 
-	fmt.Println(content)
+	fmt.Println(string(content))
 }

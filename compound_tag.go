@@ -37,7 +37,7 @@ func (tag *CompoundTag) Read(reader io.Reader) error {
 			break
 		}
 
-		tag.Tags[tag.Name()] = t
+		tag.Tags[t.Name()] = t
 	}
 
 	return nil

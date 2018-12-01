@@ -5,12 +5,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 
 	"github.com/ppacher/nbt"
 )
 
 var fileName = flag.String("file", "", "The path to the NBT file")
+var compressed = flag.Bool("gzip", true, "Whether or not the file is GZIP compressed")
 
 func main() {
 	flag.Parse()
@@ -26,10 +28,14 @@ func main() {
 		return
 	}
 
-	reader, err := gzip.NewReader(file)
-	if err != nil {
-		fmt.Println("Failed to create gzip reader")
-		return
+	var reader io.Reader = file
+
+	if *compressed {
+		reader, err = gzip.NewReader(file)
+		if err != nil {
+			fmt.Println("Failed to create gzip reader")
+			return
+		}
 	}
 
 	tag, err := nbt.ReadNamedTag(reader)

@@ -3,6 +3,7 @@ package nbt
 import (
 	"encoding/binary"
 	"encoding/json"
+	"fmt"
 	"io"
 )
 
@@ -85,6 +86,8 @@ func CreateTag(tagID byte) Tag {
 	case TagCompound:
 		t = new(CompoundTag)
 		break
+	default:
+		panic(fmt.Sprintf("Invalid tag id: %d", tagID))
 	}
 
 	return t
@@ -104,6 +107,8 @@ func ReadNamedTag(reader io.Reader) (Tag, error) {
 	}
 
 	tag := CreateTag(tagID)
+
+	//fmt.Printf("Reading tagID %d with name %s and type %+v\n", tagID, name, tag)
 
 	tag.SetName(name)
 	if err := tag.Read(reader); err != nil {

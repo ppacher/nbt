@@ -41,7 +41,7 @@ func (tag *ListTag) Read(reader io.Reader) error {
 	for i = 0; i < length; i++ {
 		t := CreateTag(tagID)
 
-		if err := tag.Read(reader); err != nil {
+		if err := t.Read(reader); err != nil {
 			return err
 		}
 
